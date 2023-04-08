@@ -6,6 +6,8 @@ package com.jose.lottery.services;
 
 import com.jose.lottery.models.UserModel;
 import com.jose.lottery.repositories.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,10 @@ public class UserService {
     
     public boolean existsByEmail(String email){
         return userRepository.existsByEmail(email);
+    }
+    
+    public Page<UserModel> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
     
 }
