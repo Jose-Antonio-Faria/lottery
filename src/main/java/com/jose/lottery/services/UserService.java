@@ -27,4 +27,20 @@ public class UserService {
         return userRepository.save(userModel);
     }
     
+    public boolean existsByName(String name){
+        return userRepository.existsByName(name);
+    }
+    
+    public boolean existsByIdentificationDocumentNumber(String identificationDocumentNumber){
+        return userRepository.existsByIdentificationDocumentNumber(identificationDocumentNumber);
+    }
+    
+    public boolean existsByTaxIdentificationNumber(String taxIdentificationNumber){
+        return userRepository.existsByTaxIdentificationNumber(taxIdentificationNumber);
+    }
+    
+    public boolean existsByEmail(String email){
+        return userRepository.existsByEmail(email);
+    }
+    
 }

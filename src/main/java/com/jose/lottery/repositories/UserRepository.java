@@ -12,4 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, UUID> {
 
+    public boolean existsByName(String name);
+    public boolean existsByIdentificationDocumentNumber(String identificationDocumentNumber);
+    public boolean existsByTaxIdentificationNumber(String taxIdentificationNumber);
+    public boolean existsByEmail(String email);
+    
 }

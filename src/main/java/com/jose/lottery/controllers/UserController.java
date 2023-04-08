@@ -29,7 +29,19 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveuser(@RequestBody @Valid UserDto userDto){
+    public ResponseEntity<Object> saveUser(@RequestBody @Valid UserDto userDto){
+        if(userService.existsByName(userDto.getName())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Name is already in use!");
+        }
+        if(userService.existsByIdentificationDocumentNumber(userDto.getIdentificationDocumentNumber())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Identification Document Number is already in use!");
+        }
+        if(userService.existsByTaxIdentificationNumber(userDto.getTaxIdentificationNumber())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Tax Identification Number is already in use!");
+        }
+        if(userService.existsByEmail(userDto.getEmail())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Email is already in use!");
+        }
         var userModel = new UserModel();
         BeanUtils.copyProperties(userDto, userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userModel));
