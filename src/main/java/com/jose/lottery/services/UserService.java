@@ -6,6 +6,8 @@ package com.jose.lottery.services;
 
 import com.jose.lottery.models.UserModel;
 import com.jose.lottery.repositories.UserRepository;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,15 @@ public class UserService {
     
     public Page<UserModel> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
+    }
+    
+    public Optional<UserModel> findById(UUID id) {
+        return userRepository.findById(id);
+    }
+
+    @Transactional
+    public void delete(UserModel userModel) {
+        userRepository.delete(userModel);
     }
     
 }
