@@ -1,13 +1,17 @@
 package com.jose.lottery.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -32,6 +36,9 @@ public class LotteryEventModel implements Serializable {
     @Column(nullable = false)
     private Status status;
 
+    @OneToMany(mappedBy = "lotteryEvent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<BallotModel> ballots;
+    
     public UUID getId() {
         return id;
     }
@@ -54,5 +61,13 @@ public class LotteryEventModel implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Set<BallotModel> getBallots() {
+        return ballots;
+    }
+
+    public void setBallots(Set<BallotModel> ballots) {
+        this.ballots = ballots;
     }
 }
