@@ -36,4 +36,8 @@ public class LotteryEventService {
         return lotteryEventRepository.existsByDate(date);
     }
     
+    public Optional<LotteryEventModel> findByDate(LocalDateTime date) {
+        return lotteryEventRepository.findByDate(date);
+    }
+    
 }
