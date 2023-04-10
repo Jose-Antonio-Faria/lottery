@@ -17,10 +17,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @DataJpaTest
 class UserRepositoryTest {
 
-  @Autowired private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  @Test
-  void injectedComponentsAreNotNull(){
-    assertThat(userRepository).isNotNull();
-  }
+    @Test
+    void injectedComponentsAreNotNull() {
+        assertThat(userRepository).isNotNull();
+    }
 }
