@@ -42,6 +42,8 @@ public class BallotModel implements Serializable {
     @Size(min = 5, max = 5)
     @Column(nullable = false)
     private int[] numbers;
+    
+    private boolean winner = false;
 
     public UUID getId() {
         return id;
@@ -73,6 +75,14 @@ public class BallotModel implements Serializable {
 
     public void setNumbers(int[] numbers) {
         this.numbers = numbers;
+    }
+
+    public boolean isWinner() {
+        return winner;
+    }
+
+    public void setWinner(boolean winner) {
+        this.winner = winner;
     }
 
 }
