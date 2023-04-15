@@ -8,7 +8,6 @@ import com.jose.lottery.repositories.LotteryEventRepository;
 import com.jose.lottery.repositories.UserRepository;
 import com.jose.lottery.utils.DateUtils;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

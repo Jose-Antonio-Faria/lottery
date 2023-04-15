@@ -1,14 +1,10 @@
 package com.jose.lottery.winner;
 
-import com.jose.lottery.models.BallotModel;
 import com.jose.lottery.models.LotteryEventModel;
 import com.jose.lottery.repositories.BallotRepository;
 import com.jose.lottery.repositories.LotteryEventRepository;
-import com.jose.lottery.services.LotteryEventService;
-import com.jose.lottery.utils.DateUtils;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,14 +48,14 @@ public class LotteryClosureTask {
     private Optional<LotteryEventModel> getPreviousDayLotteryEvent() {
         LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("UTC"));
         LocalDateTime previousDay = currentDateTime.plusMinutes(CLOCK_DRIFT_MARGIN_IN_MINUTES).minusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
-        return lotteryEventRepository.findByDate(previousDay);
+        return lotteryEventRepository.findByDate(previousDay.toLocalDate());
     }
     
     private void createTodayLotteryEvent() {
         LotteryEventModel lotteryEventModel = new LotteryEventModel();
         LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("UTC"));
         LocalDateTime currentDay = currentDateTime.plusMinutes(CLOCK_DRIFT_MARGIN_IN_MINUTES).withHour(0).withMinute(0).withSecond(0).withNano(0);
-        lotteryEventModel.setDate(currentDay);
+        lotteryEventModel.setDate(currentDay.toLocalDate());
         lotteryEventModel.setStatus(LotteryEventModel.Status.OPEN);
         lotteryEventRepository.save(lotteryEventModel);
     }

@@ -1,7 +1,6 @@
 package com.jose.lottery.controllers;
 
 import com.jose.lottery.models.LotteryEventModel;
-import com.jose.lottery.models.UserModel;
 import com.jose.lottery.services.LotteryEventService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

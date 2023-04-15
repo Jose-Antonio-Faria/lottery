@@ -3,10 +3,7 @@ package com.jose.lottery.winner;
 import com.jose.lottery.models.BallotModel;
 import com.jose.lottery.models.LotteryEventModel;
 import com.jose.lottery.repositories.BallotRepository;
-import com.jose.lottery.repositories.LotteryEventRepository;
-import com.jose.lottery.utils.DateUtils;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *

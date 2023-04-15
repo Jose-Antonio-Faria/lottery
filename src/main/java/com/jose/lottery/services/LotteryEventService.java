@@ -4,10 +4,9 @@ import com.jose.lottery.models.BallotModel;
 import com.jose.lottery.models.LotteryEventModel;
 import com.jose.lottery.repositories.BallotRepository;
 import com.jose.lottery.repositories.LotteryEventRepository;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,11 +36,11 @@ public class LotteryEventService {
         return lotteryEventRepository.findAll(pageable);
     }
     
-    public boolean existsByDate(LocalDateTime date){
+    public boolean existsByDate(LocalDate date){
         return lotteryEventRepository.existsByDate(date);
     }
     
-    public Optional<LotteryEventModel> findByDate(LocalDateTime date) {
+    public Optional<LotteryEventModel> findByDate(LocalDate date) {
         return lotteryEventRepository.findByDate(date);
     }
     

@@ -4,8 +4,6 @@ import com.jose.lottery.dtos.UserDto;
 import com.jose.lottery.models.UserModel;
 import com.jose.lottery.services.UserService;
 import jakarta.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.BeanUtils;
