@@ -19,9 +19,20 @@ public interface BallotRepository extends JpaRepository<BallotModel, UUID>{
     
     public List<BallotModel> findByUser(UserModel user);
     
-    @Query("SELECT b FROM BallotModel b WHERE b.lotteryEvent = ?1 AND b.winner = true")
+    @Query(""
+            + "SELECT b FROM BallotModel b "
+            + "WHERE b.lotteryEvent = ?1 "
+            + "AND b.winner = true")
     List<BallotModel> findWinningBallotsByLotteryEvent(LotteryEventModel lotteryEvent);
     
-    @Query("SELECT b FROM BallotModel b WHERE b.lotteryEvent = ?1 AND b.numbers = ?2")
+    @Query("SELECT b FROM BallotModel b "
+            + "WHERE b.lotteryEvent = ?1 "
+            + "AND b.numbers = ?2")
     List<BallotModel> findBallotsWithKey(LotteryEventModel lotteryEvent, int[] key);
+
+    @Query("SELECT b FROM BallotModel b "
+            + "JOIN b.lotteryEvent l "
+            + "WHERE l.date = :date "
+            + "AND b.winner = true")
+    List<BallotModel> findWinningBallotsForDate(LocalDateTime date);
 }
