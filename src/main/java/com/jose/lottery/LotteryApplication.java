@@ -1,8 +1,5 @@
 package com.jose.lottery;
 
-import com.jose.lottery.utils.DateUtils;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

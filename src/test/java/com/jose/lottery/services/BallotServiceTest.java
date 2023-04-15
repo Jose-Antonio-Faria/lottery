@@ -3,8 +3,6 @@ package com.jose.lottery.services;
 import com.jose.lottery.repositories.BallotRepository;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

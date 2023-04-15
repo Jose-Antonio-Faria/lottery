@@ -5,8 +5,6 @@ import com.jose.lottery.models.LotteryEventModel;
 import com.jose.lottery.models.UserModel;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;

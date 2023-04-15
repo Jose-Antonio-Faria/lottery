@@ -5,7 +5,6 @@ import com.jose.lottery.repositories.BallotRepository;
 import com.jose.lottery.repositories.LotteryEventRepository;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
