@@ -13,8 +13,6 @@ public class BallotDto {
     
     @NotNull
     private UUID user_id;
-    @NotNull
-    private UUID lottery_id;
     @Size(min = 5, max = 5)
     private int[] numbers;
     private boolean winner;
@@ -25,14 +23,6 @@ public class BallotDto {
 
     public void setUser_id(UUID user_id) {
         this.user_id = user_id;
-    }
-
-    public UUID getLottery_id() {
-        return lottery_id;
-    }
-
-    public void setLottery_id(UUID lottery_id) {
-        this.lottery_id = lottery_id;
     }
 
     public int[] getNumbers() {
