@@ -1,8 +1,10 @@
 package com.jose.lottery.services;
 
 import com.jose.lottery.repositories.BallotRepository;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +30,7 @@ public class BallotServiceTest {
     @Test
     void canFindWinningBallotForDate(){
         //when
-        LocalDateTime date = LocalDateTime.of(2023, Month.APRIL, 13, 0, 0);
+        LocalDate date = LocalDate.of(2023, Month.APRIL, 13);
         underTest.findWinningBallotsForDate(date);
         
         //then

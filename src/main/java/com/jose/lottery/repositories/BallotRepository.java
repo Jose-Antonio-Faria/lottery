@@ -3,7 +3,7 @@ package com.jose.lottery.repositories;
 import com.jose.lottery.models.BallotModel;
 import com.jose.lottery.models.LotteryEventModel;
 import com.jose.lottery.models.UserModel;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,5 +34,5 @@ public interface BallotRepository extends JpaRepository<BallotModel, UUID>{
             + "JOIN b.lotteryEvent l "
             + "WHERE l.date = :date "
             + "AND b.winner = true")
-    List<BallotModel> findWinningBallotsForDate(LocalDateTime date);
+    List<BallotModel> findWinningBallotsForDate(LocalDate date);
 }

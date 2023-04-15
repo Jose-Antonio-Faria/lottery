@@ -3,7 +3,7 @@ package com.jose.lottery.services;
 import com.jose.lottery.models.BallotModel;
 import com.jose.lottery.models.UserModel;
 import com.jose.lottery.repositories.BallotRepository;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +36,7 @@ public class BallotService {
         return ballotRepository.findByUser(user);
     }
     
-    public List<BallotModel> findWinningBallotsForDate(LocalDateTime date){
+    public List<BallotModel> findWinningBallotsForDate(LocalDate date){
         return ballotRepository.findWinningBallotsForDate(date);
     }
 }

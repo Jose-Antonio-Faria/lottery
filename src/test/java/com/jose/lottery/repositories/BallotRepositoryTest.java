@@ -3,8 +3,10 @@ package com.jose.lottery.repositories;
 import com.jose.lottery.models.BallotModel;
 import com.jose.lottery.models.LotteryEventModel;
 import com.jose.lottery.models.UserModel;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,12 +48,12 @@ public class BallotRepositoryTest {
         userRepository.save(userModel);
         
         LotteryEventModel firstLotteryEvent = new LotteryEventModel();
-        LocalDateTime lotteryDate = LocalDateTime.of(2023, Month.APRIL, 13, 0, 0);
+        LocalDate lotteryDate = LocalDate.of(2023, Month.APRIL, 13);
         firstLotteryEvent.setDate(lotteryDate);
         firstLotteryEvent.setStatus(LotteryEventModel.Status.OPEN);
 
         LotteryEventModel secondLotteryEventModel = new LotteryEventModel();
-        lotteryDate = LocalDateTime.of(2023, Month.APRIL, 14, 0, 0);
+        lotteryDate = LocalDate.of(2023, Month.APRIL, 14);
         secondLotteryEventModel.setDate(lotteryDate);
         secondLotteryEventModel.setStatus(LotteryEventModel.Status.OPEN);
         
@@ -88,7 +90,7 @@ public class BallotRepositoryTest {
         ballotRepository.save(fourthBallot);
         
         //when
-        LocalDateTime dateToSearchWinners = LocalDateTime.of(2023, Month.APRIL, 14, 0, 0);
+        LocalDate dateToSearchWinners = LocalDate.of(2023, Month.APRIL, 14);
         List<BallotModel> winningBallots = ballotRepository.findWinningBallotsForDate(dateToSearchWinners);
         
         //then
