@@ -35,4 +35,8 @@ public class BallotService {
     public List<BallotModel> findByUser(UserModel user) {
         return ballotRepository.findByUser(user);
     }
+    
+    public List<BallotModel> findWinningBallotsForDate(LocalDateTime date){
+        return ballotRepository.findWinningBallotsForDate(date);
+    }
 }
