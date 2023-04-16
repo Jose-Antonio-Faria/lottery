@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -54,6 +55,11 @@ public class BallotController {
     public String showBallotSubmissionForm(Model model) {
         model.addAttribute("ballotdto", new BallotDto());
         return "ballot_submission";
+    }
+    
+    @GetMapping("/winning/form")
+    public String showCheckWinnersForm(Model model) {
+        return "check_winning_ballots";
     }
     
     @PostMapping("/submit")
@@ -91,8 +97,8 @@ public class BallotController {
         return ResponseEntity.status(HttpStatus.OK).body(ballotService.findByUser(userOptional.get()));
     }
 
-    @GetMapping("/winning/{date}")
-    public ResponseEntity<Object> getWinningBallots(@PathVariable("date") @Valid LocalDate date){
+    @GetMapping("/winners")
+    public ResponseEntity<Object> getWinningBallots(@RequestParam @Valid LocalDate date){
         
         List<BallotModel> winningBallots = ballotService.findWinningBallotsForDate(date);
         
