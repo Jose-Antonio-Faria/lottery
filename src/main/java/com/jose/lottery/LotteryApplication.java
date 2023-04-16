@@ -21,7 +21,7 @@ public class LotteryApplication {
         logger.info("Lottery Service started successfully!");
     }
 
-    @GetMapping("/")
+    @GetMapping("/alive")
     public String alive() {
         return "Server Alive!";
     }
