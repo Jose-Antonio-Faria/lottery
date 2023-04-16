@@ -20,7 +20,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author jose
  */
-@RestController
+@Controller
 @RequestMapping("/ballot")
 public class BallotController {
 
@@ -46,8 +50,14 @@ public class BallotController {
         this.ballotService = ballotService;
     }
 
-    @PostMapping
-    public ResponseEntity<Object> saveBallot(@RequestBody @Valid BallotDto ballotDto){
+    @GetMapping("/submit")
+    public String showBallotSubmissionForm(Model model) {
+        model.addAttribute("ballotdto", new BallotDto());
+        return "ballot_submission";
+    }
+    
+    @PostMapping("/submit")
+    public ResponseEntity<Object> saveBallot(@Valid @ModelAttribute BallotDto ballotDto, BindingResult errors, Model model){
         Optional<UserModel> userOptional = userService.findById(ballotDto.getUser_id());
         LocalDate today = DateUtils.getTodayDate();
         Optional<LotteryEventModel> lotteryEventOptional = lotteryEventService.findByDate(today);
