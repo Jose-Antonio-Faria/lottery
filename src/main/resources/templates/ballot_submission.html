@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ballot Submission</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> </meta>
+        <link rel="stylesheet" th:href="@{/css/registration_style.css}"/>
+    </head>
+    <body>
+        <form action="#" th:action="@{submit}" th:object="${ballotdto}" method="post">
+            <div class="container">
+                <h1>Submit Ballot</h1>
+                <p>Please fill in this form to submit a ballot.</p>
+                <label><b>User_ID</b></label>
+                <input type="text" th:field="*{user_id}" placeholder="Enter user_id"></input>
+
+                <label><b>Jackpot Number 1</b></label>
+                <input type="number" th:field="*{number1}" placeholder="Enter Number between 1-10" min="1" max="10"></input>
+
+                <label><b>Jackpot Number 2</b></label>
+                <input type="number" th:field="*{number2}" placeholder="Enter Number between 1-10" min="1" max="10"></input>
+                
+                <label><b>Jackpot Number 3</b></label>
+                <input type="number" th:field="*{number3}" placeholder="Enter Number between 1-10" min="1" max="10"></input>
+                
+                <label><b>Jackpot Number 4</b></label>
+                <input type="number" th:field="*{number4}" placeholder="Enter Number between 1-10" min="1" max="10"></input>
+                
+                <label><b>Jackpot Number 5</b></label>
+                <input type="number" th:field="*{number5}" placeholder="Enter Number between 1-10" min="1" max="10"></input>
+
+                <button type="submit" class="registerbtn">Submit Ballot</button>
+            </div>
+        </form> 
+    </body>
+</html>
