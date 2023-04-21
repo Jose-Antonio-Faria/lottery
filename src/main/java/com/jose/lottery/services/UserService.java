@@ -51,6 +51,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Optional<UserModel> findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+    
     @Transactional
     public void delete(UserModel userModel) {
         userRepository.delete(userModel);

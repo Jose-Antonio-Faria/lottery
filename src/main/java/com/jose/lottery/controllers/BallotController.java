@@ -64,7 +64,7 @@ public class BallotController {
     
     @PostMapping("/submit")
     public ResponseEntity<Object> saveBallot(@Valid @ModelAttribute BallotDto ballotDto, BindingResult errors, Model model){
-        Optional<UserModel> userOptional = userService.findById(ballotDto.getUser_id());
+        Optional<UserModel> userOptional = userService.findByEmail(ballotDto.getEmail());
         LocalDate today = DateUtils.getTodayDate();
         Optional<LotteryEventModel> lotteryEventOptional = lotteryEventService.findByDate(today);
         if (!userOptional.isPresent()){
