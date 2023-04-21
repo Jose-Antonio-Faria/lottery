@@ -13,7 +13,7 @@ import java.util.UUID;
 public class BallotDto {
     
     @NotNull
-    private UUID user_id;
+    private String email;
     
     @Min(value = 1)
     @Max(value = 10)
@@ -33,12 +33,12 @@ public class BallotDto {
 
     private boolean winner;
 
-    public UUID getUser_id() {
-        return user_id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser_id(UUID user_id) {
-        this.user_id = user_id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getNumber1() {
