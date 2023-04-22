@@ -35,9 +35,9 @@ public class BallotRepositoryTest {
     @Autowired
     private BallotRepository ballotRepository;
     
-    private static UserModel userModel;
-    private static LotteryEventModel firstLotteryEvent;
-    private static LotteryEventModel secondLotteryEvent;
+    private UserModel userModel;
+    private LotteryEventModel firstLotteryEvent;
+    private LotteryEventModel secondLotteryEvent;
     
     public BallotRepositoryTest() {
     }
@@ -150,7 +150,10 @@ public class BallotRepositoryTest {
         ballotRepository.save(thirdBallot);
         ballotRepository.save(fourthBallot);
         
+        //when
         int numBalots = ballotRepository.getNumBallots(firstLotteryEvent);
+        
+        //then
         assertTrue(numBalots == 3);
     }
     
@@ -193,7 +196,10 @@ public class BallotRepositoryTest {
         ballotRepository.save(thirdBallot);
         ballotRepository.save(fifthBallot);
         
+        //when
         BallotModel ballotModel = ballotRepository.selectBallot(firstLotteryEvent, 1);
+        
+        //then
         assertTrue(ballotModel.getId().equals(secondBallot.getId()));
     }
 }

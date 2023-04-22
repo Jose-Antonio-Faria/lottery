@@ -34,6 +34,7 @@ public class WinningBallotsMarkerTest {
     @Test
     void if_there_is_winner_then_get_winner() {
         
+        //given
         UserModel userModel = new UserModel();
         userModel.setName("Jose Faria");
         userModel.setIdentificationDocumentNumber("14229735");
@@ -91,8 +92,13 @@ public class WinningBallotsMarkerTest {
         ballotRepository.save(fifthBallot);
         
         WinningBallotMarker winningBallotMarker = new WinningBallotMarker(ballotRepository, new DummyRandomNumberGenerator());
+        
+        //when
         winningBallotMarker.markWinningBallot(lotteryEventModel);
+        
+        //then
+        BallotModel expectedWinner = secondBallot;
         Optional<BallotModel> winner = ballotRepository.findWinningBallotByLotteryEvent(lotteryEventModel);
-        assertTrue(winner.get().getId().equals(secondBallot.getId()));
+        assertTrue(winner.isPresent() && winner.get().getId().equals(expectedWinner.getId()));
     }
 }

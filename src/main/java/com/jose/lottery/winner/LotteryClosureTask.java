@@ -23,14 +23,14 @@ public class LotteryClosureTask {
     
     private LotteryEventRepository lotteryEventRepository;
     private BallotRepository ballotRepository;
-    private final WinningBallotsMarker winningBallotsMarker;
+    private final WinningBallotMarker winningBallotMarker;
 
     private static Logger logger = LoggerFactory.getLogger(LotteryClosureTask.class);
 
     public LotteryClosureTask(LotteryEventRepository lotteryEventRepository, BallotRepository ballotRepository) {
         this.lotteryEventRepository = lotteryEventRepository;
         this.ballotRepository = ballotRepository;
-        winningBallotsMarker = new WinningBallotsMarker(ballotRepository, new JackpotKeyGenerator());
+        winningBallotMarker = new WinningBallotMarker(ballotRepository, new RandomNumberGenerator());
     }
 
     @Scheduled(cron = "0 0 0 * * ?", zone = "UTC")
@@ -39,7 +39,7 @@ public class LotteryClosureTask {
         List<LotteryEventModel> eventsToClose = getLotteryEventsToClose();
 
         for(LotteryEventModel event : eventsToClose){
-            winningBallotsMarker.markWinningBallots(event);
+            winningBallotMarker.markWinningBallot(event);
             closeLotteryEvent(event);
         }
 

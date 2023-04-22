@@ -44,8 +44,8 @@ public class LotteryEventService {
         return lotteryEventRepository.findByDate(date);
     }
     
-    public List<BallotModel> findWinningBallots(LotteryEventModel lotteryEvent) {
-        return ballotRepository.findWinningBallotsByLotteryEvent(lotteryEvent);
+    public Optional<BallotModel> findWinningBallots(LotteryEventModel lotteryEvent) {
+        return ballotRepository.findWinningBallotByLotteryEvent(lotteryEvent);
     }
     
 }
