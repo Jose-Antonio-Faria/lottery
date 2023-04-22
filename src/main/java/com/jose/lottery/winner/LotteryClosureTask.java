@@ -3,9 +3,10 @@ package com.jose.lottery.winner;
 import com.jose.lottery.models.LotteryEventModel;
 import com.jose.lottery.repositories.BallotRepository;
 import com.jose.lottery.repositories.LotteryEventRepository;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -35,20 +36,30 @@ public class LotteryClosureTask {
     @Scheduled(cron = "0 0 0 * * ?", zone = "UTC")
     public void selectWinners(){
 
-        Optional<LotteryEventModel> lotteryEvent = getPreviousDayLotteryEvent();
-        
-        if (lotteryEvent.isPresent()) {
-            winningBallotsMarker.markWinningBallots(lotteryEvent.get());
-        } else {
-            logger.warn("Unable to select winners, no lottery event yesterday");
+        List<LotteryEventModel> eventsToClose = getLotteryEventsToClose();
+
+        for(LotteryEventModel event : eventsToClose){
+            winningBallotsMarker.markWinningBallots(event);
+            closeLotteryEvent(event);
         }
+
         createTodayLotteryEvent();
     }
 
-    private Optional<LotteryEventModel> getPreviousDayLotteryEvent() {
+    private List<LotteryEventModel> getLotteryEventsToClose(){
+        LocalDate previousDay = getPreviousDay();
+        return lotteryEventRepository.findOpenEventsBeforeOrEqualDate(previousDay);
+    }
+    
+    private LocalDate getPreviousDay(){
         LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("UTC"));
         LocalDateTime previousDay = currentDateTime.plusMinutes(CLOCK_DRIFT_MARGIN_IN_MINUTES).minusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
-        return lotteryEventRepository.findByDate(previousDay.toLocalDate());
+        return previousDay.toLocalDate();
+    }
+    
+    private void closeLotteryEvent(LotteryEventModel event){
+        event.setStatus(LotteryEventModel.Status.CLOSED);
+        lotteryEventRepository.save(event);
     }
     
     private void createTodayLotteryEvent() {
