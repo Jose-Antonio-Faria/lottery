@@ -50,13 +50,13 @@ public class BallotRepositoryTest {
         firstLotteryEvent.setDate(lotteryDate);
         firstLotteryEvent.setStatus(LotteryEventModel.Status.OPEN);
 
-        LotteryEventModel secondLotteryEventModel = new LotteryEventModel();
+        LotteryEventModel secondLotteryEvent = new LotteryEventModel();
         lotteryDate = LocalDate.of(2023, Month.APRIL, 14);
-        secondLotteryEventModel.setDate(lotteryDate);
-        secondLotteryEventModel.setStatus(LotteryEventModel.Status.OPEN);
+        secondLotteryEvent.setDate(lotteryDate);
+        secondLotteryEvent.setStatus(LotteryEventModel.Status.OPEN);
         
         lotteryRepository.save(firstLotteryEvent);
-        lotteryRepository.save(secondLotteryEventModel);
+        lotteryRepository.save(secondLotteryEvent);
         
         BallotModel firstBallot = new BallotModel();
         firstBallot.setUser(userModel);
@@ -72,13 +72,13 @@ public class BallotRepositoryTest {
         
         BallotModel thirdBallot = new BallotModel();
         thirdBallot.setUser(userModel);
-        thirdBallot.setLotteryEvent(secondLotteryEventModel);
+        thirdBallot.setLotteryEvent(secondLotteryEvent);
         thirdBallot.setNumbers(new int[]{3,6,7,9,8});
         thirdBallot.setWinner(false);
         
         BallotModel fourthBallot = new BallotModel();
         fourthBallot.setUser(userModel);
-        fourthBallot.setLotteryEvent(secondLotteryEventModel);
+        fourthBallot.setLotteryEvent(secondLotteryEvent);
         fourthBallot.setNumbers(new int[]{8,1,1,3,4});
         fourthBallot.setWinner(true);
         
