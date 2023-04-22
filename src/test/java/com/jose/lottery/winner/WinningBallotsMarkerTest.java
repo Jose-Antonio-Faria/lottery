@@ -7,7 +7,9 @@ import com.jose.lottery.repositories.BallotRepository;
 import com.jose.lottery.repositories.LotteryEventRepository;
 import com.jose.lottery.repositories.UserRepository;
 import com.jose.lottery.utils.DateUtils;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
  */
 @DataJpaTest
 public class WinningBallotsMarkerTest {
-
+    
     @Autowired
     private UserRepository userRepository;
     
@@ -40,7 +42,16 @@ public class WinningBallotsMarkerTest {
         userModel.setPostalCode("1400-136");
         userModel.setEmail("joseantfaria108@gmail.com");
         
+        UserModel secondUserModel = new UserModel();
+        secondUserModel.setName("Rui Feliz");
+        secondUserModel.setIdentificationDocumentNumber("14229734");
+        secondUserModel.setTaxIdentificationNumber("260150385");
+        secondUserModel.setAddress("Jardim Zoológico, nº2, 4ºE");
+        secondUserModel.setPostalCode("1430-166");
+        secondUserModel.setEmail("rui.feliz@gmail.com");
+        
         userRepository.save(userModel);
+        userRepository.save(secondUserModel);
         
         LotteryEventModel lotteryEventModel = new LotteryEventModel();
         lotteryEventModel.setDate(DateUtils.getTodayDate());
@@ -51,29 +62,37 @@ public class WinningBallotsMarkerTest {
         BallotModel firstBallot = new BallotModel();
         firstBallot.setUser(userModel);
         firstBallot.setLotteryEvent(lotteryEventModel);
-        firstBallot.setNumbers(new int[]{1,2,3,4,5});
+        firstBallot.setRegistrationDate(LocalDateTime.of(2023, Month.APRIL, 14, 16, 0));
         
         BallotModel secondBallot = new BallotModel();
         secondBallot.setUser(userModel);
         secondBallot.setLotteryEvent(lotteryEventModel);
-        secondBallot.setNumbers(new int[]{2,4,6,8,10});
+        secondBallot.setRegistrationDate(LocalDateTime.of(2023, Month.APRIL, 14, 17, 0));
         
         BallotModel thirdBallot = new BallotModel();
-        thirdBallot.setUser(userModel);
+        thirdBallot.setUser(secondUserModel);
         thirdBallot.setLotteryEvent(lotteryEventModel);
-        thirdBallot.setNumbers(new int[]{3,6,7,9,8});
+        thirdBallot.setRegistrationDate(LocalDateTime.of(2023, Month.APRIL, 14, 18, 0));
+        
+        BallotModel fourthBallot = new BallotModel();
+        fourthBallot.setUser(secondUserModel);
+        fourthBallot.setLotteryEvent(lotteryEventModel);
+        fourthBallot.setRegistrationDate(LocalDateTime.of(2023, Month.APRIL, 14, 19, 0));
+        
+        BallotModel fifthBallot = new BallotModel();
+        fifthBallot.setUser(userModel);
+        fifthBallot.setLotteryEvent(lotteryEventModel);
+        fifthBallot.setRegistrationDate(LocalDateTime.of(2023, Month.APRIL, 14, 20, 0));
         
         ballotRepository.save(firstBallot);
         ballotRepository.save(secondBallot);
         ballotRepository.save(thirdBallot);
+        ballotRepository.save(fourthBallot);
+        ballotRepository.save(fifthBallot);
         
-        IRandomKeyGenerator keyGenerator = new DummyRandomKeyGenerator();
-        WinningBallotsMarker winningBallotsMarker = new WinningBallotsMarker(ballotRepository, keyGenerator);
-        
-        winningBallotsMarker.markWinningBallots(lotteryEventModel);
-
-        List<BallotModel> winningBallots = ballotRepository.findWinningBallotsByLotteryEvent(lotteryEventModel);
-        
-        assertTrue(winningBallots.size() == 1);
+        WinningBallotMarker winningBallotMarker = new WinningBallotMarker(ballotRepository, new DummyRandomNumberGenerator());
+        winningBallotMarker.markWinningBallot(lotteryEventModel);
+        Optional<BallotModel> winner = ballotRepository.findWinningBallotByLotteryEvent(lotteryEventModel);
+        assertTrue(winner.get().getId().equals(secondBallot.getId()));
     }
 }
