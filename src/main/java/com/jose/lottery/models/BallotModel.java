@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -38,9 +39,8 @@ public class BallotModel implements Serializable {
     @JoinColumn(name = "lotteryEvent_id", nullable = false)
     private LotteryEventModel lotteryEvent;
     
-    @Size(min = 5, max = 5)
     @Column(nullable = false)
-    private int[] numbers;
+    private LocalDateTime registrationDate;
     
     private boolean winner = false;
 
@@ -68,12 +68,12 @@ public class BallotModel implements Serializable {
         this.lotteryEvent = lotteryEvent;
     }
 
-    public int[] getNumbers() {
-        return numbers;
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setNumbers(int[] numbers) {
-        this.numbers = numbers;
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public boolean isWinner() {

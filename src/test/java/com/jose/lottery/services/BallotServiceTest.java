@@ -29,10 +29,10 @@ public class BallotServiceTest {
     void canFindWinningBallotForDate(){
         //when
         LocalDate date = LocalDate.of(2023, Month.APRIL, 13);
-        underTest.findWinningBallotsForDate(date);
+        underTest.findWinningBallotForDate(date);
         
         //then
-        verify(ballotRepository).findWinningBallotsForDate(date);
+        verify(ballotRepository).findWinningBallotForDate(date);
     }
     
 }

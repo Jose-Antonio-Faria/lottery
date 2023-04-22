@@ -25,6 +25,7 @@ public class LotteryEventRepositoryTest {
     @Test
     public void testGetOpenEventsBeforeDate() {
         
+        //given
         LotteryEventModel firstLotteryEvent = new LotteryEventModel();
         LocalDate lotteryDate = LocalDate.of(2023, Month.APRIL, 2);
         firstLotteryEvent.setDate(lotteryDate);
@@ -50,9 +51,11 @@ public class LotteryEventRepositoryTest {
         lotteryRepository.save(thirdLotteryEvent);
         lotteryRepository.save(fourthLotteryEvent);
         
+        //when
         LocalDate date = LocalDate.of(2023, Month.APRIL, 4);
         List<LotteryEventModel> events = lotteryRepository.findOpenEventsBeforeOrEqualDate(date);
         
+        //then
         assertTrue(events.size() == 2 && eventDatesCorrect(events));
     }
     

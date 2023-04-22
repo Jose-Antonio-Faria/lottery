@@ -10,6 +10,8 @@ import com.jose.lottery.services.UserService;
 import com.jose.lottery.utils.DateUtils;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -77,8 +79,8 @@ public class BallotController {
         var ballotModel = new BallotModel();
         ballotModel.setUser(userOptional.get());
         ballotModel.setLotteryEvent(lotteryEventOptional.get());
-        ballotModel.setNumbers(ballotDto.getNumbers());
-        ballotModel.setWinner(ballotDto.isWinner());
+        ballotModel.setWinner(false);
+        ballotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(ballotService.save(ballotModel));
     }
     
@@ -100,13 +102,13 @@ public class BallotController {
     @GetMapping("/winners")
     public ResponseEntity<Object> getWinningBallots(@RequestParam @Valid LocalDate date){
         
-        List<BallotModel> winningBallots = ballotService.findWinningBallotsForDate(date);
+        Optional<BallotModel> winningBallot = ballotService.findWinningBallotForDate(date);
         
-        if (winningBallots.isEmpty()) {
+        if (winningBallot.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Winning ballots not found.");
         }
         
-        return ResponseEntity.status(HttpStatus.OK).body(winningBallots);
+        return ResponseEntity.status(HttpStatus.OK).body(winningBallot);
     }
 
 }
