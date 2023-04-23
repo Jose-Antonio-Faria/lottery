@@ -1,6 +1,7 @@
 package com.jose.lottery.services;
 
 import com.jose.lottery.repositories.BallotRepository;
+import com.jose.lottery.winner.WinningBallotSelector;
 import java.time.LocalDate;
 import java.time.Month;
 import org.junit.jupiter.api.BeforeEach;

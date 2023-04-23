@@ -8,6 +8,8 @@ import com.jose.lottery.services.BallotService;
 import com.jose.lottery.services.LotteryEventService;
 import com.jose.lottery.services.UserService;
 import com.jose.lottery.utils.DateUtils;
+import com.jose.lottery.winner.RandomNumberGenerator;
+import com.jose.lottery.winner.WinningBallotSelector;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -106,6 +108,22 @@ public class BallotController {
         
         if (winningBallot.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Winning ballots not found.");
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(winningBallot);
+    }
+    
+    @GetMapping("/simulate/winner")
+    public ResponseEntity<Object> getSimulatedWinner(){
+        
+        Optional<LotteryEventModel> todayLotteryEvent = lotteryEventService.findByDate(DateUtils.getTodayDate());
+        if (todayLotteryEvent.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is no lottery event today.");
+        }
+        
+        Optional<BallotModel> winningBallot = ballotService.getSimulatedWinner(todayLotteryEvent.get());
+        if (winningBallot.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lottery has no ballots. Can't simulate winner.");
         }
         
         return ResponseEntity.status(HttpStatus.OK).body(winningBallot);

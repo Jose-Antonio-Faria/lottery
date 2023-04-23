@@ -22,7 +22,7 @@ public interface BallotRepository extends JpaRepository<BallotModel, UUID>{
        
     @Query("SELECT COUNT(*) FROM BallotModel b "
             + "JOIN b.lotteryEvent l "
-            + "WHERE b.lotteryEvent = ?1 ")
+            + "WHERE b.lotteryEvent = :lotteryEvent ")
     int getNumBallots(LotteryEventModel lotteryEvent);
     
     @Query("SELECT b FROM BallotModel b "
@@ -34,7 +34,7 @@ public interface BallotRepository extends JpaRepository<BallotModel, UUID>{
     
     @Query(""
             + "SELECT b FROM BallotModel b "
-            + "WHERE b.lotteryEvent = ?1 "
+            + "WHERE b.lotteryEvent = :lotteryEvent "
             + "AND b.winner = true")
     Optional<BallotModel> findWinningBallotByLotteryEvent(LotteryEventModel lotteryEvent);
 
