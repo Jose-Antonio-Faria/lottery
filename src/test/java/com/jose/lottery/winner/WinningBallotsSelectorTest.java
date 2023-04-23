@@ -20,7 +20,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
  * @author jose
  */
 @DataJpaTest
-public class WinningBallotsMarkerTest {
+public class WinningBallotsSelectorTest {
     
     @Autowired
     private UserRepository userRepository;
@@ -91,14 +91,13 @@ public class WinningBallotsMarkerTest {
         ballotRepository.save(fourthBallot);
         ballotRepository.save(fifthBallot);
         
-        WinningBallotMarker winningBallotMarker = new WinningBallotMarker(ballotRepository, new DummyRandomNumberGenerator());
+        WinningBallotSelector winningBallotMarker = new WinningBallotSelector(ballotRepository, new DummyRandomNumberGenerator());
         
         //when
-        winningBallotMarker.markWinningBallot(lotteryEventModel);
+        Optional<BallotModel> winner = winningBallotMarker.selectWinningBallot(lotteryEventModel);
         
         //then
         BallotModel expectedWinner = secondBallot;
-        Optional<BallotModel> winner = ballotRepository.findWinningBallotByLotteryEvent(lotteryEventModel);
         assertTrue(winner.isPresent() && winner.get().getId().equals(expectedWinner.getId()));
     }
 }
