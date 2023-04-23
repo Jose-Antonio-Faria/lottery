@@ -65,6 +65,7 @@ To run the application, navigate to the 'target' directory and run the following
 ## Technologies used
 
 - <ins> Java 17</ins>
+- <ins> JUnit</ins>
 - <ins> Maven</ins>
 - <ins> Spring Boot:</ins> I chose to use Spring Boot, instead of the standard Spring framework I am more familiar with, due to the simplicity of the application. Spring Boot's embedded web server, simplified configuration and annotations allowed me to develop the application faster.
 - <ins> PostgreSQL:</ins> Given the relationships between the main entities of the application (ballot, lottery_event, and user) and the fact that we are not dealing with large volumes of data I decided to use a relational database.
@@ -84,11 +85,13 @@ Users can submit ballots through the Submit Ballot page in the UI by providing t
 
 ### Each day at midnight the lottery event will be closed and a random lottery winner will be selected
 
-A scheduled task runs every day at midnight and selects a winner by following the algorithm below:
+A scheduled task runs every day at midnight and selects a winner for all open lotteries by following the algorithm below:
 
 1. Count the nº of ballots in the current lottery event (num_ballots)
 2. Generate a random number between 0 and num_ballots - 1 (n)
 3. Select the nth ballot in current lottery event as winner
+
+After a winner is selected the lottery is closed.
 
 ### All users will be able to check the winning ballot for any specific date.
 
