@@ -78,8 +78,10 @@ public class LotteryClosureTask {
         LotteryEventModel lotteryEventModel = new LotteryEventModel();
         LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("UTC"));
         LocalDateTime currentDay = currentDateTime.plusMinutes(CLOCK_DRIFT_MARGIN_IN_MINUTES).withHour(0).withMinute(0).withSecond(0).withNano(0);
-        lotteryEventModel.setDate(currentDay.toLocalDate());
-        lotteryEventModel.setStatus(LotteryEventModel.Status.OPEN);
-        lotteryEventRepository.save(lotteryEventModel);
+        if (!lotteryEventRepository.existsByDate(currentDay.toLocalDate())) {
+            lotteryEventModel.setDate(currentDay.toLocalDate());
+            lotteryEventModel.setStatus(LotteryEventModel.Status.OPEN);
+            lotteryEventRepository.save(lotteryEventModel);
+        }
     }
 }
