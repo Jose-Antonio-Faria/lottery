@@ -1,6 +1,7 @@
 package com.jose.lottery.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,20 +29,21 @@ public class BallotModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private UserModel user;
-    
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "lotteryEvent_id", nullable = false)
     private LotteryEventModel lotteryEvent;
-    
+
     @Column(nullable = false)
     private LocalDateTime registrationDate;
-    
+
+    @JsonIgnore
     private boolean winner = false;
 
     public UUID getId() {
@@ -58,6 +60,11 @@ public class BallotModel implements Serializable {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    @JsonProperty("user_mail")
+    public String getUserMail() {
+        return user.getEmail();
     }
 
     public LotteryEventModel getLotteryEvent() {
